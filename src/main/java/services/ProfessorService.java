@@ -4,7 +4,7 @@ import entities.Interaction;
 import entities.Professor;
 import entities.Video;
 import exceptions.CredentialsException;
-import exceptions.NonUniqueResultException;
+import exceptions.UserNotRegisteredException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.PersistenceException;
@@ -19,20 +19,19 @@ public class ProfessorService {
         this.em = em;
     }
 
-    public Professor checkCredentials(String usrn, String pwd) throws CredentialsException, NonUniqueResultException {
-        List<Professor> professorList = null;
+    public Professor checkCredentials(String usrn, String pwd) throws CredentialsException, UserNotRegisteredException {
+        Professor professor;
         try {
-            professorList = em.createNamedQuery("Professor.checkCredentials", Professor.class).setParameter(1, usrn).setParameter(2, pwd)
-                    .getResultList();
+            professor = em.createNamedQuery("Professor.checkCredentials", Professor.class).setParameter(1, usrn).setParameter(2, pwd)
+                    .getSingleResult();
         } catch (PersistenceException e) {
-            throw new CredentialsException("Could not verify credentals");
+            if(findProfessorByUsername(usrn))
+                throw new CredentialsException("Password incorrect. Please retry");
+            else
+                throw new UserNotRegisteredException("The user is not registered yet. Please register and retry");
         }
-        if (professorList.isEmpty())
-            return null;
-        else if (professorList.size() == 1)
-            return professorList.get(0);
-        throw new NonUniqueResultException("More than one user registered with same credentials");
 
+        return professor;
     }
 
     public void createProfessor(String username, String password){
@@ -41,5 +40,16 @@ public class ProfessorService {
         em.persist(professor);
         em.getTransaction().commit();
     }
+
+    public boolean findProfessorByUsername(String username) throws UserNotRegisteredException {
+        try {
+            Professor p = em.createNamedQuery("Professor.findProfessorByUserame", Professor.class).setParameter("username", username)
+                    .getSingleResult();
+            return p!=null;
+        } catch (PersistenceException e) {
+            throw new UserNotRegisteredException("The user is not registered yet. Please register and retry");
+        }
+    }
+
 
 }

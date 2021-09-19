@@ -6,6 +6,7 @@ import java.util.List;
 
 @Entity
 @NamedQuery(name = "Professor.checkCredentials", query = "SELECT p FROM Professor p  WHERE p.username = ?1 and p.password = ?2")
+@NamedQuery(name = "Professor.findProfessorByUserame", query = "SELECT p FROM Professor p WHERE p.username = :username")
 public class Professor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

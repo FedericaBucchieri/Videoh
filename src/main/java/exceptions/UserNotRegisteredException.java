@@ -1,10 +1,10 @@
 package exceptions;
 
-public class CredentialsException extends Exception {
+public class UserNotRegisteredException extends Exception{
     private static final long serialVersionUID = 1L;
     private String message;
 
-    public CredentialsException(String message) {
+    public UserNotRegisteredException(String message) {
         super(message);
         this.message = message;
     }

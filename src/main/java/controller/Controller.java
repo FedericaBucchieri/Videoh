@@ -1,3 +1,7 @@
+package controller;
+import model.Model;
+import view.View;
+
 public class Controller {
     private Model model;
     private View view;
@@ -17,6 +21,17 @@ public class Controller {
     }
 
     public void handleProfessorLogin(String usr, String psw){
-        //model.professorLogin();
+        String error = model.professorLogin(usr, psw);
+
+        if(error == null){
+            view.displayVideoManagementScene();
+        }
+        else{
+            view.displayError(error);
+        }
+    }
+
+    public void closeConnections(){
+        model.closeConnections();
     }
 }
