@@ -14,6 +14,7 @@ import services.ProfessorService;
 import services.QuestionService;
 import services.VideoService;
 
+import java.io.File;
 import java.util.List;
 
 public class Model {
@@ -66,6 +67,15 @@ public class Model {
         }
 
         return null;
+    }
+
+    // @TODO Handle videoFile
+    public void createNewVideo(String title, String description, String previewImage, File videoFile){
+        videoService.createVideo(title, description, previewImage, professor);
+    }
+
+    public List<Video> getVideoListByProfessor(){
+        return videoService.findVideosByProfessor(professor.getId());
     }
 
     public Video getCurrentVideo() {

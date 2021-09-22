@@ -12,6 +12,9 @@ public class Video {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String title;
+    private String previewImage;
+    private String description;
+    private String code;
 
     // @TODO
     // The video is missing -> Binary data type?
@@ -33,8 +36,10 @@ public class Video {
     public Video() {
     }
 
-    public Video(String title, Professor professor) {
+    public Video(String title, String description, String previewImage, Professor professor) {
         this.title = title;
+        this.description = description;
+        this.previewImage = previewImage;
         this.date = new Timestamp(System.currentTimeMillis());
         this.professor = professor;
     }
@@ -85,5 +90,29 @@ public class Video {
 
     public void setQuestionList(List<Question> questionList) {
         this.questionList = questionList;
+    }
+
+    public String getPreviewImage() {
+        return previewImage;
+    }
+
+    public void setPreviewImage(String previewImage) {
+        this.previewImage = previewImage;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

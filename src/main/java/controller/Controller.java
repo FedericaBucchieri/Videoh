@@ -1,6 +1,10 @@
 package controller;
+import entities.Video;
 import model.Model;
 import view.View;
+
+import java.io.File;
+import java.util.List;
 
 public class Controller {
     private Model model;
@@ -16,22 +20,29 @@ public class Controller {
         return model;
     }
 
-    public void handleStudentLogIn(String nickname){
+    public void closeConnections(){
+        model.closeConnections();
+    }
+
+
+    public void validateStudentLogIn(String nickname){
         model.studentLogin(nickname);
     }
 
-    public void handleProfessorLogin(String usr, String psw){
+    public void validateProfessorLogin(String usr, String psw){
         String error = model.professorLogin(usr, psw);
 
         if(error == null){
-            view.displayVideoManagementScene();
+            List<Video> videoList = model.getVideoListByProfessor();
+            view.displayVideoManagementScene(usr, videoList);
         }
         else{
             view.displayError(error);
         }
     }
 
-    public void closeConnections(){
-        model.closeConnections();
+    public void addNewVideo(String title, String description, String previewImage, File videoFile){
+        model.createNewVideo(title, description, previewImage, videoFile);
     }
+
 }

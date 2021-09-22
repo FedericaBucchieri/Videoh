@@ -20,18 +20,20 @@ public class ProfessorService {
     }
 
     public Professor checkCredentials(String usrn, String pwd) throws CredentialsException, UserNotRegisteredException {
-        Professor professor;
-        try {
-            professor = em.createNamedQuery("Professor.checkCredentials", Professor.class).setParameter(1, usrn).setParameter(2, pwd)
-                    .getSingleResult();
-        } catch (PersistenceException e) {
-            if(findProfessorByUsername(usrn))
+        List<Professor> professorList = null;
+
+        professorList = em.createNamedQuery("Professor.checkCredentials", Professor.class).setParameter(1, usrn).setParameter(2, pwd)
+                .getResultList();
+
+        if (professorList.isEmpty()) {
+            if (findProfessorByUsername(usrn))
                 throw new CredentialsException("Password incorrect. Please retry");
             else
-                throw new UserNotRegisteredException("The user is not registered yet. Please register and retry");
-        }
+                throw new UserNotRegisteredException("Invalid username. Please register first");
+        } else if (professorList.size() == 1)
+            return professorList.get(0);
 
-        return professor;
+        return null;
     }
 
     public void createProfessor(String username, String password){

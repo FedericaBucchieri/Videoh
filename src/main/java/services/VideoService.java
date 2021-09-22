@@ -25,9 +25,8 @@ public class VideoService {
         return professor.getVideoList();
     }
 
-    public void createVideo(String title, int professorId){
-        Professor professor = em.find(Professor.class, professorId);
-        Video video = new Video(title, professor);
+    public void createVideo(String title, String description, String previewImage, Professor professor){
+        Video video = new Video(title, description, previewImage, professor);
         em.getTransaction().begin();
         em.persist(video);
         em.getTransaction().commit();

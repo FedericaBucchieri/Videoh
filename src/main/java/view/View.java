@@ -1,12 +1,11 @@
 package view;
 
 import controller.Controller;
-import entities.Professor;
+import entities.Video;
 
+import java.io.File;
+import java.util.List;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class View extends JFrame {
     private Scene currentScene;
@@ -37,8 +36,8 @@ public class View extends JFrame {
         currentScene.getMainPanel().setVisible(true);
     }
 
-    public void displayVideoManagementScene(){
-        VideoManagementScene videoManagamentScene = new VideoManagementScene(this);
+    public void displayVideoManagementScene(String username, List<Video> videoList){
+        VideoManagementScene videoManagamentScene = new VideoManagementScene(this, username, videoList);
         currentScene.getMainPanel().setVisible(false);
         currentScene = videoManagamentScene;
         add(currentScene.getMainPanel());
@@ -47,13 +46,16 @@ public class View extends JFrame {
 
 
     public void handleProfessorLogin(String usr, String pwd){
-        controller.handleProfessorLogin(usr, pwd);
+        controller.validateProfessorLogin(usr, pwd);
     }
 
     public void displayError(String error){
         currentScene.displayError(error);
     }
 
+    public void handleAddNewVideo(String title, String description, String previewImage, File videoFile){
+        controller.addNewVideo(title, description, previewImage, videoFile);
+    }
 
 
 }

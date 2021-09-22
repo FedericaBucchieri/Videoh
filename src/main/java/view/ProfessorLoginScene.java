@@ -22,9 +22,17 @@ public class ProfessorLoginScene implements Scene{
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                view.handleProfessorLogin(textField1.getText(), Arrays.toString(passwordField1.getPassword()));
+                view.handleProfessorLogin(textField1.getText(), passwordToString(passwordField1.getPassword()));
             }
         });
+    }
+
+    private String passwordToString(char[] password){
+        String newPass = "";
+        for (char c: password) {
+            newPass += c;
+        }
+        return newPass;
     }
 
     @Override
