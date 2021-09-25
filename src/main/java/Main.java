@@ -1,11 +1,10 @@
-import controller.Controller;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+
+import sceneManager.SceneManager;
 
 
 public class Main {
     public static void main(String[] args) {
-        Controller controller = new Controller();
+        SceneManager sceneManager = new SceneManager();
+        sceneManager.setVisible(true);
     }
 }

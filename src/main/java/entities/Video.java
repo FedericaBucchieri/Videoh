@@ -14,7 +14,7 @@ public class Video {
     private String title;
     private String previewImage;
     private String description;
-    private String code;
+    private int videoCode;
 
     // @TODO
     // The video is missing -> Binary data type?
@@ -36,12 +36,13 @@ public class Video {
     public Video() {
     }
 
-    public Video(String title, String description, String previewImage, Professor professor) {
+    public Video(String title, String description, String previewImage, int videoCode, Professor professor) {
         this.title = title;
         this.description = description;
         this.previewImage = previewImage;
         this.date = new Timestamp(System.currentTimeMillis());
         this.professor = professor;
+        this.videoCode = videoCode;
     }
 
     public Integer getId() {
@@ -108,11 +109,11 @@ public class Video {
         this.description = description;
     }
 
-    public String getCode() {
-        return code;
+    public int getCode() {
+        return videoCode;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setCode(int videoCode) {
+        this.videoCode = videoCode;
     }
 }

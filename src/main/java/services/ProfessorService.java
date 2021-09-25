@@ -5,18 +5,18 @@ import entities.Professor;
 import entities.Video;
 import exceptions.CredentialsException;
 import exceptions.UserNotRegisteredException;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.PersistenceException;
+import jakarta.persistence.*;
 
 import java.util.List;
 
 public class ProfessorService {
     @PersistenceContext
     private EntityManager em;
+    private  EntityManagerFactory entityManagerFactory;
 
-    public ProfessorService(EntityManager em) {
-        this.em = em;
+    public ProfessorService() {
+        this.entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        this.em = entityManagerFactory.createEntityManager();
     }
 
     public Professor checkCredentials(String usrn, String pwd) throws CredentialsException, UserNotRegisteredException {

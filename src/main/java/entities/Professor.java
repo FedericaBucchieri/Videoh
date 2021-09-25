@@ -55,4 +55,8 @@ public class Professor {
     public void setVideoList(List<Video> videoList) {
         this.videoList = videoList;
     }
+
+    public void removeVideo(Video video){
+        videoList.remove(video);
+    }
 }
