@@ -41,6 +41,7 @@ public class LoginForm extends JPanel implements Listener {
 
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         add(this.ui.getMainPanel());
     }
 

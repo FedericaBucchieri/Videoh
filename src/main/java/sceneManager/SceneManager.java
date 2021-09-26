@@ -1,8 +1,9 @@
 package sceneManager;
 
+import EventManagement.*;
 import EventManagement.Event;
-import EventManagement.Listener;
-import EventManagement.LoginEvent;
+import GeneralLogin.GeneralLoginScene;
+import GeneralLogin.MainLoginPanel;
 import entities.Professor;
 import scenes.ProfessorHomePage;
 import scenes.ProfessorLoginScene;
@@ -44,10 +45,15 @@ public class SceneManager extends JFrame implements Listener {
          */
 
 
-        ProfessorLoginScene professorLoginScene = new ProfessorLoginScene(this);
-        professorLoginScene.setVisible(true);
-        currentScene = professorLoginScene;
-        add(professorLoginScene);
+//        ProfessorLoginScene professorLoginScene = new ProfessorLoginScene(this);
+//        professorLoginScene.setVisible(true);
+//        currentScene = professorLoginScene;
+//        add(professorLoginScene);
+
+        GeneralLoginScene generalLoginScene = new GeneralLoginScene(this);
+        generalLoginScene.setVisible(true);
+        currentScene = generalLoginScene;
+        add(generalLoginScene);
 
 
     }
@@ -57,6 +63,30 @@ public class SceneManager extends JFrame implements Listener {
         if(event.getClass().equals(LoginEvent.class)) {
             goToVideoManagementScene(((LoginEvent) event).getProfessor());
         }
+
+        if(event.getClass().equals(LoginStudEvent.class)){
+
+        }
+
+        if (event.getClass().equals(LoginProfEvent.class)){
+            goToProfLoginPage();
+
+        }
+    }
+
+    private void goToProfLoginPage() {
+
+        remove(currentScene);
+        invalidate();
+        ProfessorLoginScene professorLoginScene = new ProfessorLoginScene(this);
+        professorLoginScene.setVisible(true);
+        currentScene = professorLoginScene;
+        add(professorLoginScene);
+        super.repaint();
+        repaint();
+
+
+
     }
 
     private void goToVideoManagementScene(Professor professor){
@@ -66,7 +96,8 @@ public class SceneManager extends JFrame implements Listener {
         ProfessorHomePage professorHomePage = new ProfessorHomePage(this, professor);
         currentScene = professorHomePage.getMainPanel();
         add(professorHomePage.getMainPanel());
-        repaint();
+        revalidate();
+        this.repaint();
     }
 
 }

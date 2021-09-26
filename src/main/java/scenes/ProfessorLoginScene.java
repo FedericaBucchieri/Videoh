@@ -10,6 +10,7 @@ import java.awt.*;
 public class ProfessorLoginScene extends JPanel{
     private LoginForm loginForm;
 
+
     public ProfessorLoginScene(SceneManager sceneManager) {
         loginForm = new LoginForm(sceneManager);
         add(loginForm, BorderLayout.CENTER);
