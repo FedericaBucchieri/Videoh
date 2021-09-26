@@ -2,6 +2,8 @@ package entities;
 
 import jakarta.persistence.*;
 
+import java.io.File;
+import java.sql.Blob;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -15,9 +17,9 @@ public class Video {
     private String previewImage;
     private String description;
     private int videoCode;
+    @Lob
+    private File file;
 
-    // @TODO
-    // The video is missing -> Binary data type?
 
     @Temporal(TemporalType.DATE)
     private Date date;
@@ -36,13 +38,14 @@ public class Video {
     public Video() {
     }
 
-    public Video(String title, String description, String previewImage, int videoCode, Professor professor) {
+    public Video(String title, String description, String previewImage, int videoCode, File file, Professor professor) {
         this.title = title;
         this.description = description;
         this.previewImage = previewImage;
         this.date = new Timestamp(System.currentTimeMillis());
         this.professor = professor;
         this.videoCode = videoCode;
+        this.file = file;
     }
 
     public Integer getId() {

@@ -19,4 +19,16 @@ public class VideoListModel {
         return service.findVideosByProfessor(professor.getId());
     }
 
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void removeVideo(Video video){
+        int videoId = video.getId();
+        List<Video> videoList = professor.getVideoList();
+
+        videoList.removeIf(v -> v.getId() == videoId);
+
+    }
+
 }

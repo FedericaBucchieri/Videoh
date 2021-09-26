@@ -6,6 +6,7 @@ import exceptions.UpdateVideoException;
 import jakarta.persistence.*;
 import sceneManager.Utils;
 
+import java.io.File;
 import java.util.List;
 import java.util.Random;
 
@@ -31,11 +32,11 @@ public class VideoService {
         return professor.getVideoList();
     }
 
-    public Video createVideo(String title, String description, String previewImage, Professor professor){
+    public Video createVideo(String title, String description, String previewImage, File file, Professor professor){
         Random random = new Random();
         int videoCode = random.nextInt(Utils.VIDEO_CODE_BOUND);
 
-        Video video = new Video(title, description, previewImage, videoCode, professor);
+        Video video = new Video(title, description, previewImage, videoCode, file, professor);
         em.getTransaction().begin();
         em.persist(video);
         em.getTransaction().commit();
@@ -47,7 +48,9 @@ public class VideoService {
         Video video = em.find(Video.class, videoId);
         Professor professor = video.getProfessor();
         professor.removeVideo(video);
+        em.getTransaction().begin();
         em.remove(video);
+        em.getTransaction().commit();
     }
 
     public void updateVideo(Video video, String title, String description, String preview) throws UpdateVideoException {

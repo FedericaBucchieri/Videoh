@@ -1,36 +1,45 @@
 package controllers;
 
-import EventManagement.Event;
+import EventManagement.DeleteVideoEvent;
 import EventManagement.Listener;
 import entities.Video;
 import model.VideoListElementModel;
-import sceneManager.Utils;
-import view.VideoListElementUI;
+import view.VideoElementUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VideoListElement extends JPanel{
     private VideoListElementModel model;
-    private VideoListElementUI ui;
+    private VideoElementUI ui;
     private Video video;
+    private List<Listener> listeners = new ArrayList<>();
 
     public VideoListElement(Video video, VideoList videoList) {
         this.video = video;
 
         this.model = new VideoListElementModel(video);
-        this.model.addListener(videoList);
+        this.listeners.add(videoList);
 
-        this.ui = new VideoListElementUI();
+        this.ui = new VideoElementUI();
         this.ui.installUI(this);
     }
+
 
     public Video getVideo() {
         return video;
     }
 
     public void deleteVideo(){
+        dispatchDeleteVideoEvent(this.ui.getMainPanel(), this.getVideo());
         model.deleteVideo();
+    }
+
+    private void dispatchDeleteVideoEvent(JPanel videoPanel, Video video){
+        for (Listener listener : listeners)
+            listener.listen(new DeleteVideoEvent(videoPanel, video));
     }
 
     public void handleModifyRequest(){
@@ -46,11 +55,5 @@ public class VideoListElement extends JPanel{
     public void paintComponent(Graphics pen) {
         add(this.ui.getMainPanel());
     }
-
-    public Dimension getMinimumSize() { return getPreferredSize(); }
-    public Dimension getPreferredSize() {
-        return new Dimension(500, 500);
-    }
-    public Dimension getMaximumSize() { return getPreferredSize(); }
 
 }

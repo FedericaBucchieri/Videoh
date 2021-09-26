@@ -1,10 +1,7 @@
 package model;
 
 import EventManagement.*;
-import entities.Professor;
 import entities.Video;
-import exceptions.UpdateVideoException;
-import sceneManager.Utils;
 import services.VideoService;
 
 import java.util.ArrayList;
@@ -12,20 +9,12 @@ import java.util.List;
 
 public class VideoListElementModel {
     private Video video;
-    private List<Listener> listeners = new ArrayList<>();
 
     public VideoListElementModel(Video video) {
         this.video = video;
     }
 
-    public void addListener(Listener listener){
-        listeners.add(listener);
-    }
-
-
     public void deleteVideo(){
-        dispatchDeleteVideoEvent(video);
-
         VideoService videoService = new VideoService();
         videoService.deleteVideo(video.getId());
     }
@@ -46,8 +35,5 @@ public class VideoListElementModel {
 
      */
 
-    private void dispatchDeleteVideoEvent(Video video){
-        for (Listener listener : listeners)
-            listener.listen(new DeleteVideoEvent(video));
-    }
+
 }

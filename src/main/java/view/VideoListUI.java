@@ -6,6 +6,7 @@ import entities.Video;
 import sceneManager.Utils;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 
 public class VideoListUI {
@@ -14,6 +15,27 @@ public class VideoListUI {
     private JScrollPane scrollPane;
     private VideoList controller;
     private List<Video> videoList;
+    private JLabel errorLabel;
+
+    public VideoListUI() {
+        this.mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
+
+        JLabel title = new JLabel("Your video List");
+        title.setFont(new Font(Font.SANS_SERIF,  Font.BOLD, Utils.TITLE_WIDTH));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainPanel.add(title);
+
+        listPanel = new JPanel();
+        listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.PAGE_AXIS));
+
+        scrollPane = new JScrollPane(listPanel);
+        mainPanel.add(scrollPane);
+
+        errorLabel = new JLabel();
+        mainPanel.add(errorLabel);
+
+    }
 
     public void installUI(VideoList controller) {
         this.controller = controller;
@@ -21,17 +43,28 @@ public class VideoListUI {
         paint();
     }
 
+    public void setVideoList(List<Video> videoList) {
+        this.videoList = videoList;
+    }
+
+    public JPanel getListPanel() {
+        return listPanel;
+    }
+
+    public JScrollPane getScrollPane() {
+        return scrollPane;
+    }
+
     public JPanel getMainPanel() {
         return mainPanel;
     }
 
     public void displayError(String error){
-
+        errorLabel.setText(error);
     }
 
-
     public void paint(){
-        listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.PAGE_AXIS));
+        listPanel.removeAll();
 
         if(videoList.isEmpty())
             displayError(Utils.ERROR_EMPTY_LIST);
@@ -41,5 +74,7 @@ public class VideoListUI {
                 listPanel.add(videoListElement);
             }
         }
+
+        listPanel.repaint();
     }
 }
