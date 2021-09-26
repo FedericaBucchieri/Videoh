@@ -4,6 +4,7 @@ import EventManagement.*;
 import EventManagement.Event;
 import GeneralLogin.GeneralLoginScene;
 import GeneralLogin.MainLoginPanel;
+import StudentLogin.StudentLoginScene;
 import entities.Professor;
 import exceptions.CredentialsException;
 import exceptions.UserNotRegisteredException;
