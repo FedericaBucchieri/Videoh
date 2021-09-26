@@ -7,6 +7,7 @@ import GeneralLogin.MainLoginPanel;
 import entities.Professor;
 import scenes.ProfessorHomePage;
 import scenes.ProfessorLoginScene;
+import StudentLogin.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,6 +56,13 @@ public class SceneManager extends JFrame implements Listener {
         currentScene = generalLoginScene;
         add(generalLoginScene);
 
+//        StudentLoginScene studentLoginScene = new StudentLoginScene(this);
+//        studentLoginScene.setVisible(true);
+//        currentScene = studentLoginScene;
+//        add(studentLoginScene);
+
+
+
 
     }
 
@@ -65,6 +73,7 @@ public class SceneManager extends JFrame implements Listener {
         }
 
         if(event.getClass().equals(LoginStudEvent.class)){
+            goToStudLoginPage();
 
         }
 
@@ -72,6 +81,15 @@ public class SceneManager extends JFrame implements Listener {
             goToProfLoginPage();
 
         }
+    }
+
+    private void goToStudLoginPage() {
+        remove(currentScene);
+        invalidate();
+        StudentLoginScene studentLoginScene = new StudentLoginScene(this);
+        studentLoginScene.setVisible(true);
+        currentScene = studentLoginScene;
+        add(studentLoginScene);
     }
 
     private void goToProfLoginPage() {

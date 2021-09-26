@@ -35,7 +35,7 @@ public class MainLoginPanel extends JPanel { //controller
     @Override
     public void paintComponent(Graphics pen) {
         //aggiungi al pannello che chiama il main panel
-        System.out.println("paintComponent del Main Login Panel");
+//        System.out.println("paintComponent del Main Login Panel");
         add(view.getMainPanel(), BorderLayout.CENTER);
     }
 
