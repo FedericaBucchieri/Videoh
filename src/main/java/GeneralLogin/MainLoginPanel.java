@@ -39,6 +39,10 @@ public class MainLoginPanel extends JPanel { //controller
         add(view.getMainPanel(), BorderLayout.CENTER);
     }
 
+    public JPanel getMainPanel(){
+        return view.getMainPanel();
+    }
+
 
     public void dispatchStudentLoginPressed() {
         for (Listener listener : listeners)

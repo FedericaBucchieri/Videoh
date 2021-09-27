@@ -3,6 +3,7 @@ package services;
 import entities.Professor;
 import entities.Video;
 import exceptions.UpdateVideoException;
+import exceptions.UserNotRegisteredException;
 import jakarta.persistence.*;
 import sceneManager.Utils;
 
@@ -27,9 +28,21 @@ public class VideoService {
         return video;
     }
 
+    public Video findVideoByCode(int videoCode) {
+       Video video = em.createNamedQuery("Video.findVideoByCode", Video.class).setParameter("code", videoCode)
+                .getSingleResult();
+        return video;
+    }
+
     public List<Video> findVideosByProfessor(int professorId){
         Professor professor = em.find(Professor.class, professorId);
         return professor.getVideoList();
+    }
+
+    public List<Video> findVideoListByProfessor(int professorId){
+            List<Video> videoList = em.createNamedQuery("Video.findVideoListByProfessor", Video.class).setParameter("id", professorId)
+                    .getResultList();
+            return videoList;
     }
 
     public Video createVideo(String title, String description, String previewImage, File file, Professor professor){
@@ -37,6 +50,11 @@ public class VideoService {
         int videoCode = random.nextInt(Utils.VIDEO_CODE_BOUND);
 
         Video video = new Video(title, description, previewImage, videoCode, file, professor);
+
+        List<Video> videoList = professor.getVideoList();
+        videoList.add(video);
+        professor.setVideoList(videoList);
+
         em.getTransaction().begin();
         em.persist(video);
         em.getTransaction().commit();

@@ -1,7 +1,4 @@
 package EventManagement;
 
-public class LoginProfEvent implements Event {
+public class LoginProfEvent implements Event{
 }
-
-
-

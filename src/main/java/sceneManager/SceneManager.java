@@ -3,13 +3,11 @@ package sceneManager;
 import EventManagement.*;
 import EventManagement.Event;
 import GeneralLogin.GeneralLoginScene;
-import GeneralLogin.MainLoginPanel;
+import StudentInsertCode.InsertCodeScene;
 import StudentLogin.StudentLoginScene;
 import entities.Professor;
-import exceptions.CredentialsException;
-import exceptions.UserNotRegisteredException;
-import scenes.ProfessorHomePage;
-import scenes.ProfessorLoginScene;
+import ProfessorHomePage.ProfessorHomePage;
+import ProfessorLoginScene.ProfessorLoginScene;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,36 +15,40 @@ import java.awt.*;
 
 
 public class SceneManager extends JFrame implements Listener {
-    private JPanel currentScene;
+    private Scene currentScene;
+    private CardLayout cardLayout;
+    private Container container;
 
     public SceneManager() {
         super("VIDEOH");
         setPreferredSize(new Dimension(Utils.JFRAME_WIDTH, Utils.JFRAME_HEIGHT));
         setLocation(300,100);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        cardLayout = new CardLayout();
+        container = getContentPane();
+        container.setLayout(cardLayout);
+
         initializeFirstScene();
+
         pack();
     }
 
     private void initializeFirstScene(){
-                /*
+         goToGeneralLoginPage();
+
+         /*
         ProfessorService service = new ProfessorService();
         Professor professor = null;
         try {
             professor = service.checkCredentials("prof1", "pass1");
-        } catch (CredentialsException e) {
-            e.printStackTrace();
-        } catch (UserNotRegisteredException e) {
+        } catch (CredentialsException | UserNotRegisteredException e) {
             e.printStackTrace();
         }
 
-        HomePageTest test = new HomePageTest(this, professor);
-        add(test.getMainPanel());
-        ProfessorHomePage professorHomePage = new ProfessorHomePage(this, professor);
-        professorHomePage.setVisible(true);
-        currentScene = professorHomePage;
-        add(professorHomePage, BorderLayout.CENTER);
+        goToProfessorHomePage(professor);
 
-         */
+          */
+
 
 
 //        ProfessorLoginScene professorLoginScene = new ProfessorLoginScene(this);
@@ -54,10 +56,14 @@ public class SceneManager extends JFrame implements Listener {
 //        currentScene = professorLoginScene;
 //        add(professorLoginScene);
 
+        /*
         GeneralLoginScene generalLoginScene = new GeneralLoginScene(this);
-        generalLoginScene.setVisible(true);
         currentScene = generalLoginScene;
-        add(generalLoginScene);
+        cardLayout.addLayoutComponent(generalLoginScene.getMainPanel(), "1");
+        add(generalLoginScene.getMainPanel());
+
+         */
+
 
 //        StudentLoginScene studentLoginScene = new StudentLoginScene(this);
 //        studentLoginScene.setVisible(true);
@@ -71,54 +77,70 @@ public class SceneManager extends JFrame implements Listener {
 
     @Override
     public void listen(Event event) {
-        if(event.getClass().equals(LoginEvent.class)) {
-            goToVideoManagementScene(((LoginEvent) event).getProfessor());
+        if(event.getClass().equals(ProfessorLoginEvent.class)) {
+            goToProfessorHomePage(((ProfessorLoginEvent) event).getProfessor());
         }
-
-        if(event.getClass().equals(LoginStudEvent.class)){
+        else if(event.getClass().equals(LoginStudEvent.class)){
             goToStudLoginPage();
-
         }
-
-        if (event.getClass().equals(LoginProfEvent.class)){
+        else if (event.getClass().equals(LoginProfEvent.class)){
             goToProfLoginPage();
-
         }
+        else if (event.getClass().equals(StudentLoginEvent.class)){
+            goToInsertCodePage(((StudentLoginEvent) event).getUsername());
+        }
+        else if (event.getClass().equals(BackEvent.class)){
+            handleBackEvent();
+        }
+    }
+
+    private void goToGeneralLoginPage() {
+        GeneralLoginScene generalLoginScene = new GeneralLoginScene(this);
+        currentScene = generalLoginScene;
+
+        container.add(generalLoginScene.getMainPanel());
+        cardLayout.next(container);
     }
 
     private void goToStudLoginPage() {
-        remove(currentScene);
-        invalidate();
         StudentLoginScene studentLoginScene = new StudentLoginScene(this);
-        studentLoginScene.setVisible(true);
         currentScene = studentLoginScene;
-        add(studentLoginScene);
+
+        container.add(studentLoginScene.getMainPanel());
+        cardLayout.next(container);
     }
 
     private void goToProfLoginPage() {
-
-        remove(currentScene);
-        invalidate();
         ProfessorLoginScene professorLoginScene = new ProfessorLoginScene(this);
-        professorLoginScene.setVisible(true);
         currentScene = professorLoginScene;
-        add(professorLoginScene);
-        super.repaint();
-        repaint();
 
-
-
+        container.add(professorLoginScene.getMainPanel());
+        cardLayout.next(container);
     }
 
-    private void goToVideoManagementScene(Professor professor){
-        remove(currentScene);
-        invalidate();
+    private void goToInsertCodePage(String username) {
+        InsertCodeScene insertCodeScene = new InsertCodeScene(this, username );
+        currentScene = insertCodeScene;
 
+        container.add(insertCodeScene.getMainPanel());
+        cardLayout.next(container);
+    }
+
+    private void goToProfessorHomePage(Professor professor){
         ProfessorHomePage professorHomePage = new ProfessorHomePage(this, professor);
-        currentScene = professorHomePage.getMainPanel();
-        add(professorHomePage.getMainPanel());
-        revalidate();
-        this.repaint();
+        currentScene = professorHomePage;
+
+        container.add(professorHomePage.getMainPanel());
+        cardLayout.next(container);
+    }
+
+    private void handleBackEvent(){
+        if(currentScene instanceof ProfessorLoginScene)
+            goToGeneralLoginPage();
+        else if(currentScene instanceof StudentLoginScene)
+            goToGeneralLoginPage();
+        else if(currentScene instanceof InsertCodeScene)
+            goToStudLoginPage();
     }
 
 }

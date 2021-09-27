@@ -56,8 +56,8 @@ public class Professor {
         this.videoList = videoList;
     }
 
-    public void removeVideo(Video video){
-        videoList.remove(video);
+    public void removeVideo(Video toErase){
+        videoList.removeIf(video -> video.getId() == toErase.getId());
     }
 
 

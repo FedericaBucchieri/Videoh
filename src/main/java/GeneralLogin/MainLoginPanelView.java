@@ -1,6 +1,9 @@
 package GeneralLogin;
 
+import sceneManager.Utils;
+
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,13 +19,9 @@ public class MainLoginPanelView { //view
 
 
 
-
     public MainLoginPanelView(MainLoginPanel controller){
         this.controller = controller;
-        System.out.println("Main login panel View constructor");
         setupMainPanel();
-
-
     }
 
     private void setupMainPanel() {
@@ -41,6 +40,9 @@ public class MainLoginPanelView { //view
         problemPanel.setLayout(new BoxLayout(problemPanel, BoxLayout.Y_AXIS));
         helpButton = new JButton("Need an help?");
         helpButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        Utils utils = new Utils();
+        helpButton = utils.styleButtonTwo(helpButton);
+
         //setupHelpButton
         problemPanel.add(helpButton);
         problemPanel.add(Box.createRigidArea(new Dimension(0, 80)));
@@ -53,8 +55,10 @@ public class MainLoginPanelView { //view
     }
 
     private void setupWelcomeLabel() {
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 80)));
+        mainPanel.add(Box.createVerticalStrut(Utils.TITLE_MARGIN));
         JLabel welcomeLabel = new JLabel("Welcome");
+        welcomeLabel.setFont(new Font(Font.SANS_SERIF,  Font.BOLD, Utils.TITLE_WIDTH));
+        welcomeLabel.setForeground(Color.decode("#314668"));
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         //to add welcome icon
         mainPanel.add(welcomeLabel);
@@ -73,10 +77,14 @@ public class MainLoginPanelView { //view
 
     }
 
+
     private JPanel setupLoginButtons() {
         JPanel loginButtonsPanel = new JPanel();
         loginButtonsPanel.setLayout(new BoxLayout(loginButtonsPanel, BoxLayout.X_AXIS));
         studLoginButton = new JButton("student");
+        Utils utils = new Utils();
+        studLoginButton = utils.styleButtonOne(studLoginButton);
+
         studLoginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -85,8 +93,11 @@ public class MainLoginPanelView { //view
         });
 
         loginButtonsPanel.add(studLoginButton);
+        loginButtonsPanel.add(Box.createHorizontalStrut(Utils.STANDARD_BORDER));
 
         profLoginButton = new JButton("professor");
+        profLoginButton = utils.styleButtonOne(profLoginButton);
+
         profLoginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -104,12 +115,15 @@ public class MainLoginPanelView { //view
     private JPanel setupLogos() {
         JPanel logos = new JPanel();
         logos.setLayout(new BoxLayout(logos, BoxLayout.X_AXIS));
+
         JLabel studLabel = new JLabel();
         studLabel.setIcon(controller.getModel().getStudIcon());
+        studLabel.setBorder(new EmptyBorder(new Insets(Utils.STANDARD_BORDER, Utils.STANDARD_BORDER, Utils.STANDARD_BORDER, Utils.STANDARD_BORDER)));
         logos.add(studLabel);
 
         JLabel profLabel = new JLabel();
         profLabel.setIcon(controller.getModel().getProfIcon());
+        profLabel.setBorder(new EmptyBorder(new Insets(Utils.STANDARD_BORDER, Utils.STANDARD_BORDER, Utils.STANDARD_BORDER, Utils.STANDARD_BORDER)));
         logos.add(profLabel);
         return  logos;
     }

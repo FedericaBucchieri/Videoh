@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@NamedQuery(name = "Video.findVideoListByProfessor", query = "SELECT v FROM Video v WHERE v.professor.id = :id ORDER BY v.date DESC ")
+@NamedQuery(name = "Video.findVideoByCode", query = "SELECT v FROM Video v WHERE v.videoCode = :code")
 public class Video {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -4,8 +4,10 @@ import entities.Interaction;
 import entities.Professor;
 import entities.Video;
 import exceptions.CredentialsException;
+import exceptions.UpdateVideoException;
 import exceptions.UserNotRegisteredException;
 import jakarta.persistence.*;
+import sceneManager.Utils;
 
 import java.util.List;
 
@@ -51,6 +53,18 @@ public class ProfessorService {
         } catch (PersistenceException e) {
             throw new UserNotRegisteredException("The user is not registered yet. Please register and retry");
         }
+    }
+
+    public void updateProfessor(Professor professor, String username, String password){
+        if(username != null)
+            professor.setUsername(username);
+
+        if(password != null)
+            professor.setPassword(password);
+
+        em.getTransaction().begin();
+        em.merge(professor);
+        em.getTransaction().commit();
     }
 
 
