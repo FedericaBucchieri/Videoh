@@ -15,6 +15,7 @@ public class DetailUI {
     private JButton updateProfileButton;
     private JLabel profLogo;
     private DetailPanel controller;
+    private JButton logoutButton;
 
     public DetailUI() {
         this.mainPanel = new JPanel();
@@ -29,7 +30,6 @@ public class DetailUI {
         mainPanel.add(Box.createVerticalStrut(Utils.STANDARD_BORDER));
         setupWelcome();
 
-        mainPanel.add(Box.createVerticalStrut(Utils.DIVIDER));
         setupButtons();
 
     }
@@ -49,6 +49,8 @@ public class DetailUI {
     }
 
     private void setupButtons(){
+        mainPanel.add(Box.createVerticalStrut(Utils.STANDARD_BORDER));
+
         Utils utils = new Utils();
         addNewVideoButton = new JButton("Add New Video");
         addNewVideoButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -61,6 +63,13 @@ public class DetailUI {
         updateProfileButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         updateProfileButton = utils.styleButtonTwo(updateProfileButton);
         mainPanel.add(updateProfileButton);
+
+        mainPanel.add(Box.createVerticalStrut(Utils.DIVIDER));
+
+        logoutButton = new JButton("Logout");
+        logoutButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        logoutButton = utils.styleButtonThree(logoutButton);
+        mainPanel.add(logoutButton);
     }
 
     private void setupProfLogo() {
@@ -87,6 +96,13 @@ public class DetailUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.handleUpdateProfileRequest();
+            }
+        });
+
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.handleLogout();
             }
         });
     }

@@ -3,11 +3,11 @@ package EventManagement;
 import uk.co.caprica.vlcj.player.media.Media;
 
 public class GoToVideoEvent implements Event {
-    private String videoPath;
+    private Media media;
     private String username;
 
-    public GoToVideoEvent (String videoPath, String username){
-        this.videoPath = videoPath;
+    public GoToVideoEvent (Media media, String username){
+        this.media = media;
         this.username = username;
     }
 

@@ -34,7 +34,7 @@ public class VideoBoxUI {
         setupControllButtonsPanel();
 
         //TODO: raggruppa tutto in una funzione.
-        mediaPlayerComponent.getMediaPlayer().playMedia(this.controller.getModel().getPath());
+        mediaPlayerComponent.getMediaPlayer().playMedia(this.controller.getModel().getMedia());
         isPlaying = true;
 
 

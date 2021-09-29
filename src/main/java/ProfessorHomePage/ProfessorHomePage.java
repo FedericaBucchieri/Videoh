@@ -9,6 +9,7 @@ import sceneManager.SceneManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProfessorHomePage implements Listener, Scene {
@@ -21,10 +22,13 @@ public class ProfessorHomePage implements Listener, Scene {
     private JPanel centerPanel;
     private JPanel rightPanel;
     private CardLayout cardLayout;
+    private List<Listener> listeners = new ArrayList<>();
 
 
     public ProfessorHomePage(SceneManager sceneManager, Professor professor) {
+        this.listeners.add(sceneManager);
         this.professor = professor;
+
         this.mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
@@ -83,10 +87,18 @@ public class ProfessorHomePage implements Listener, Scene {
             rightPanel.add(detailPanel.getMainPanel());
             openVideoList();
         }
+        else if(event.getClass().equals(LogoutEvent.class)){
+            dispatchLogoutEvent((LogoutEvent) event);
+        }
     }
 
     public Professor getProfessor() {
         return professor;
+    }
+
+    public void dispatchLogoutEvent(LogoutEvent event){
+        for (Listener listener : listeners)
+            listener.listen(event);
     }
 
     public void openNewVideoForm(){
