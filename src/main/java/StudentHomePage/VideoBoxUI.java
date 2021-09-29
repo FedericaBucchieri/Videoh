@@ -4,6 +4,7 @@ import uk.co.caprica.vlcj.component.DirectMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.direct.*;
 import uk.co.caprica.vlcj.player.direct.format.RV32BufferFormat;
 
+import javax.print.attribute.standard.Media;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -25,8 +26,7 @@ public class VideoBoxUI {
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(videoSurface, BorderLayout.CENTER);
         setupImage();
-        mediaPlayerComponent.getMediaPlayer().playMedia(this.controller.getModel().getPath());
-
+        mediaPlayerComponent.getMediaPlayer().playMedia(this.controller.getModel().getMedia());
     }
 
     public JPanel getMainPanel() {

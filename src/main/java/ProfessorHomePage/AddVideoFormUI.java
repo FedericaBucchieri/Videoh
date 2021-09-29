@@ -1,8 +1,6 @@
 package ProfessorHomePage;
 
-import ProfessorHomePage.AddVideoForm;
 import sceneManager.Utils;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

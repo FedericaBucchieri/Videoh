@@ -35,7 +35,7 @@ public class StudentHomePageUI {
 
     private void setupVideoBox() {
         new NativeDiscovery().discover();
-        videoBox = new VideoBox(controller.getModel().getVideoPath());
+        videoBox = new VideoBox(controller.getModel().getMedia());
         mainPanel.add(videoBox.getUI().getMainPanel(), BorderLayout.CENTER);
 
     }

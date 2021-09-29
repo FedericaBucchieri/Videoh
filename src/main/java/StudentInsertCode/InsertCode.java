@@ -3,9 +3,13 @@ package StudentInsertCode;
 import EventManagement.BackEvent;
 import EventManagement.GoToVideoEvent;
 import EventManagement.Listener;
+import entities.Video;
 import sceneManager.SceneManager;
+import uk.co.caprica.vlcj.player.media.Media;
+import uk.co.caprica.vlcj.player.media.callback.seekable.RandomAccessFileMedia;
 
 import javax.swing.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +39,15 @@ public class InsertCode extends JComponent {
         return  model.getStudentUsername();
     }
 
-    public void goToStudentHomePage(String videoPath) {
+    public void goToStudentHomePage(String videoCode) {
+        Video video = model.searchVideoByCode(Integer. parseInt(videoCode));
+        Media media = new RandomAccessFileMedia(video.getFile());
+        dispatchGoToVideoEvent(media);
+    }
+
+    private void dispatchGoToVideoEvent(Media media){
         for (Listener listener : listeners){
-            listener.listen(new GoToVideoEvent(videoPath));
+            listener.listen(new GoToVideoEvent(media));
         }
     }
 }

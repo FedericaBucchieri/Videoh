@@ -3,7 +3,6 @@ package entities;
 import jakarta.persistence.*;
 
 import java.io.File;
-import java.sql.Blob;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -120,5 +119,13 @@ public class Video {
 
     public void setCode(int videoCode) {
         this.videoCode = videoCode;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public int getVideoCode() {
+        return videoCode;
     }
 }

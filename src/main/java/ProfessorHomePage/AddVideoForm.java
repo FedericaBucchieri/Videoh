@@ -4,6 +4,7 @@ import EventManagement.CancelEvent;
 import EventManagement.Listener;
 import EventManagement.NewVideoEvent;
 import entities.Video;
+import uk.co.caprica.vlcj.player.media.Media;
 
 import javax.swing.*;
 import java.awt.*;

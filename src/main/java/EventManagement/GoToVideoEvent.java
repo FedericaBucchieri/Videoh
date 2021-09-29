@@ -1,15 +1,15 @@
 package EventManagement;
 
+import uk.co.caprica.vlcj.player.media.Media;
+
 public class GoToVideoEvent implements Event {
-    private String videoPath;
+    private Media media;
 
-    public GoToVideoEvent (String videoPath){
-        this.videoPath = videoPath;
+    public GoToVideoEvent (Media media){
+        this.media = media;
     }
 
-    public String getVideoPath() {
-        return videoPath;
+    public Media getMedia() {
+        return media;
     }
-
-
 }
