@@ -95,12 +95,12 @@ public class SceneManager extends JFrame implements Listener {
             handleBackEvent();
         }
         else if (event.getClass().equals(GoToVideoEvent.class)){
-            goToVideoStudentPage(((GoToVideoEvent) event).getMedia());
+            goToVideoStudentPage(((GoToVideoEvent) event).getVideoPath());
         }
     }
 
-    private void goToVideoStudentPage(Media media) {
-        StudentHomePageScene studentHomePageScene = new StudentHomePageScene(this, media);
+    private void goToVideoStudentPage(String path) {
+        StudentHomePageScene studentHomePageScene = new StudentHomePageScene(this, path);
         currentScene = studentHomePageScene;
         container.add(studentHomePageScene.getMainPanel());
         cardLayout.next(container);
@@ -153,6 +153,18 @@ public class SceneManager extends JFrame implements Listener {
             goToGeneralLoginPage();
         else if(currentScene instanceof InsertCodeScene)
             goToStudLoginPage();
+        else if (currentScene instanceof StudentHomePageScene){
+            StudentHomePageScene instanceOfCurrentScene = (StudentHomePageScene) currentScene;
+            goToInsertCodePage(instanceOfCurrentScene.getUsername());
+        }
+    }
+
+    private void goToInsertCodePage(String username) {
+        InsertCodeScene studentLoginScene = new InsertCodeScene(this, username);
+        currentScene = studentLoginScene;
+
+        container.add(studentLoginScene.getMainPanel());
+        cardLayout.next(container);
     }
 
 }

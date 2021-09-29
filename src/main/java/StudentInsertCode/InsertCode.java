@@ -46,8 +46,10 @@ public class InsertCode extends JComponent {
     }
 
     private void dispatchGoToVideoEvent(Media media){
+    public void goToStudentHomePage(String videoPath, String username) {
         for (Listener listener : listeners){
             listener.listen(new GoToVideoEvent(media));
+            listener.listen(new GoToVideoEvent(videoPath, username));
         }
     }
 }
