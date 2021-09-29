@@ -34,6 +34,14 @@ public class InsertCodeUI {
             }
         });
 
+        sendButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO: sostituire il path con quello che prende dal controller (dopo la retrieve from database)
+                controller.goToStudentHomePage("/Users/andrewamato/Downloads/IMG_6363.MOV");
+            }
+        });
+
         codeField.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

@@ -1,6 +1,7 @@
 package StudentInsertCode;
 
 import EventManagement.BackEvent;
+import EventManagement.GoToVideoEvent;
 import EventManagement.Listener;
 import sceneManager.SceneManager;
 
@@ -32,5 +33,11 @@ public class InsertCode extends JComponent {
 
     public String getStudentUsername(){
         return  model.getStudentUsername();
+    }
+
+    public void goToStudentHomePage(String videoPath) {
+        for (Listener listener : listeners){
+            listener.listen(new GoToVideoEvent(videoPath));
+        }
     }
 }

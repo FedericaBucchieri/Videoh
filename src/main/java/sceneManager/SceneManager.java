@@ -3,6 +3,7 @@ package sceneManager;
 import EventManagement.*;
 import EventManagement.Event;
 import GeneralLogin.GeneralLoginScene;
+import StudentHomePage.StudentHomePageScene;
 import StudentInsertCode.InsertCodeScene;
 import StudentLogin.StudentLoginScene;
 import entities.Professor;
@@ -92,6 +93,16 @@ public class SceneManager extends JFrame implements Listener {
         else if (event.getClass().equals(BackEvent.class)){
             handleBackEvent();
         }
+        else if (event.getClass().equals(GoToVideoEvent.class)){
+            goToVideoStudentPage(((GoToVideoEvent) event).getVideoPath());
+        }
+    }
+
+    private void goToVideoStudentPage(String path) {
+        StudentHomePageScene studentHomePageScene = new StudentHomePageScene(this, path);
+        currentScene = studentHomePageScene;
+        container.add(studentHomePageScene.getMainPanel());
+        cardLayout.next(container);
     }
 
     private void goToGeneralLoginPage() {
