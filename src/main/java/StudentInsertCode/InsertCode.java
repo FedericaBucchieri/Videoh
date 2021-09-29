@@ -35,9 +35,9 @@ public class InsertCode extends JComponent {
         return  model.getStudentUsername();
     }
 
-    public void goToStudentHomePage(String videoPath) {
+    public void goToStudentHomePage(String videoPath, String username) {
         for (Listener listener : listeners){
-            listener.listen(new GoToVideoEvent(videoPath));
+            listener.listen(new GoToVideoEvent(videoPath, username));
         }
     }
 }

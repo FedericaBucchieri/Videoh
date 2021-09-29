@@ -94,12 +94,12 @@ public class SceneManager extends JFrame implements Listener {
             handleBackEvent();
         }
         else if (event.getClass().equals(GoToVideoEvent.class)){
-            goToVideoStudentPage(((GoToVideoEvent) event).getVideoPath());
+            goToVideoStudentPage(((GoToVideoEvent) event).getVideoPath(),((GoToVideoEvent) event).getUsername());
         }
     }
 
-    private void goToVideoStudentPage(String path) {
-        StudentHomePageScene studentHomePageScene = new StudentHomePageScene(this, path);
+    private void goToVideoStudentPage(String path, String username) {
+        StudentHomePageScene studentHomePageScene = new StudentHomePageScene(this, path, username);
         currentScene = studentHomePageScene;
         container.add(studentHomePageScene.getMainPanel());
         cardLayout.next(container);
@@ -129,14 +129,6 @@ public class SceneManager extends JFrame implements Listener {
         cardLayout.next(container);
     }
 
-    private void goToInsertCodePage(String username) {
-        InsertCodeScene insertCodeScene = new InsertCodeScene(this, username );
-        currentScene = insertCodeScene;
-
-        container.add(insertCodeScene.getMainPanel());
-        cardLayout.next(container);
-    }
-
     private void goToProfessorHomePage(Professor professor){
         ProfessorHomePage professorHomePage = new ProfessorHomePage(this, professor);
         currentScene = professorHomePage;
@@ -152,6 +144,18 @@ public class SceneManager extends JFrame implements Listener {
             goToGeneralLoginPage();
         else if(currentScene instanceof InsertCodeScene)
             goToStudLoginPage();
+        else if (currentScene instanceof StudentHomePageScene){
+            StudentHomePageScene instanceOfCurrentScene = (StudentHomePageScene) currentScene;
+            goToInsertCodePage(instanceOfCurrentScene.getUsername());
+        }
+    }
+
+    private void goToInsertCodePage(String username) {
+        InsertCodeScene studentLoginScene = new InsertCodeScene(this, username);
+        currentScene = studentLoginScene;
+
+        container.add(studentLoginScene.getMainPanel());
+        cardLayout.next(container);
     }
 
 }

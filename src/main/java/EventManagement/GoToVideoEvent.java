@@ -2,9 +2,11 @@ package EventManagement;
 
 public class GoToVideoEvent implements Event {
     private String videoPath;
+    private String username;
 
-    public GoToVideoEvent (String videoPath){
+    public GoToVideoEvent (String videoPath, String username){
         this.videoPath = videoPath;
+        this.username = username;
     }
 
     public String getVideoPath() {
@@ -12,4 +14,7 @@ public class GoToVideoEvent implements Event {
     }
 
 
+    public String getUsername() {
+        return this.username;
+    }
 }

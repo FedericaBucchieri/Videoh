@@ -8,11 +8,13 @@ import javax.swing.*;
 
 public class StudentHomePageScene implements Scene {
     StudentHomePage studentHomePage;
+    String username;
 
-    public StudentHomePageScene(SceneManager sceneManager, String path) {
-        studentHomePage = new StudentHomePage(sceneManager, path);
+    public StudentHomePageScene(SceneManager sceneManager, String path, String username) {
+        studentHomePage = new StudentHomePage(sceneManager, path, username);
+        this.username = username;
     }
-
+    public String getUsername(){return this.username;}
     public JPanel getMainPanel() {return studentHomePage.getMainPanel();}
 
 }

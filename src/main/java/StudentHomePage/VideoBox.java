@@ -16,6 +16,7 @@ public class VideoBox {//controller
     public VideoBoxModel getModel() {
         return model;
     }
+
     public VideoBoxUI getUI() {
         return UI;
     }
@@ -27,7 +28,8 @@ public class VideoBox {//controller
 /*
 *
 * {
-
+//TODO: to remove. not at the moment, i still need it
+*
     private static final int width = 600;
 
     private static final int height = 400;
