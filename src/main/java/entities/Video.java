@@ -121,4 +121,8 @@ public class Video {
     public void setCode(int videoCode) {
         this.videoCode = videoCode;
     }
+
+    public File getFile() {
+        return this.file;
+    }
 }

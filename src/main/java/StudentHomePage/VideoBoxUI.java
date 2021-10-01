@@ -109,6 +109,10 @@ public class VideoBoxUI {
 
     }
 
+    public void dismissVideo(){
+        this.mediaPlayerComponent.release();
+    }
+
 
     private class TutorialRenderCallbackAdapter extends RenderCallbackAdapter {
 

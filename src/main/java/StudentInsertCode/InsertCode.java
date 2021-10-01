@@ -3,9 +3,11 @@ package StudentInsertCode;
 import EventManagement.BackEvent;
 import EventManagement.GoToVideoEvent;
 import EventManagement.Listener;
+import entities.Video;
 import sceneManager.SceneManager;
 
 import javax.swing.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,5 +41,15 @@ public class InsertCode extends JComponent {
         for (Listener listener : listeners){
             listener.listen(new GoToVideoEvent(videoPath, username));
         }
+    }
+
+    public void goToStudentHomePageSeconda(String videoCode, String username) {//similar but different signature
+        //questa funzione prende tutte il video dal database
+        Video video = model.searchVideoByCode(Integer.parseInt(videoCode));
+        File videoFile = video.getFile();
+        for (Listener listener : listeners){
+            listener.listen(new GoToVideoEvent(videoFile.getPath(), username));
+        }
+
     }
 }

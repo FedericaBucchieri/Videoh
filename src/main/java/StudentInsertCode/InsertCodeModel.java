@@ -15,6 +15,8 @@ public class InsertCodeModel {
     public Video searchVideoByCode(int code){
         VideoService videoService = new VideoService();
         return videoService.findVideoByCode(code);
+
+
     }
 
     public String getStudentUsername() {

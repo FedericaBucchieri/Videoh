@@ -21,6 +21,9 @@ public class VideoBox {//controller
         return UI;
     }
 
+    public void dismissVideo() {
+        getUI().dismissVideo();
+    }
 }
 
 

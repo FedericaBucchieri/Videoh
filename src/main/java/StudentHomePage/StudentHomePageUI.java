@@ -35,6 +35,7 @@ public class StudentHomePageUI {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                videoBox.dismissVideo();
                 controller.goToStudentInsertCode();
             }
         });

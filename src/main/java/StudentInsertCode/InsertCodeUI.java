@@ -38,7 +38,9 @@ public class InsertCodeUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO: sostituire il path con quello che prende dal controller (dopo la retrieve from database)
-                controller.goToStudentHomePage("/Users/andrewamato/Downloads/video_test.mp4", controller.getStudentUsername());
+//                controller.go ToStudentHomePage("/Users/andrewamato/Downloads/video_test.mp4", controller.getStudentUsername());
+
+                controller.goToStudentHomePageSeconda(codeField.getText(), controller.getStudentUsername());
             }
         });
 
