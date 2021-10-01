@@ -17,6 +17,7 @@ public class Utils {
     public static final int SUBTITLE_WIDTH = 24;
     public static final int BUTTON_LABEL_WIDTH = 16;
     public static final int SUBBUTTON_LABEL_WIDTH = 14;
+    public static final int LOGOUT_BUTTON_WIDTH = 12;
     public static final int STANDARD_BORDER = 20;
     public static final int STANDARD_TEXT_FIELD_WIDTH = 300;
     public static final int STANDARD_SMALL_TEXT_FIELD_WIDTH = 300;
@@ -45,6 +46,15 @@ public class Utils {
         button.setBorderPainted(false);
         button.setForeground(Color.white);
         button.setFont((new Font(Font.SANS_SERIF,  Font.BOLD, SUBBUTTON_LABEL_WIDTH)));
+        return button;
+    }
+
+    public JButton styleButtonThree(JButton button){
+        button.setBackground(Color.decode("#999999"));
+        button.setOpaque(true);
+        button.setBorderPainted(false);
+        button.setForeground(Color.white);
+        button.setFont((new Font(Font.SANS_SERIF,  Font.BOLD, LOGOUT_BUTTON_WIDTH)));
         return button;
     }
 

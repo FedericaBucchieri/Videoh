@@ -1,19 +1,21 @@
 package StudentHomePage;
 
+import uk.co.caprica.vlcj.player.media.Media;
+
 public class StudentHomePageModel {
     private StudentHomePage controller;
-    private String videoPath; //va cancellato e messo un video da prendere dal DB
+    private Media media;
     private String username;
 
-    public StudentHomePageModel (StudentHomePage controller, String videoPath, String username){
+    public StudentHomePageModel (StudentHomePage controller, Media media, String username){
         this.controller = controller;
-        this.videoPath = videoPath;
+        this.media = media;
         this.username = username;
     }
 
 
-    public String getVideoPath() {
-        return videoPath;
+    public Media getMedia() {
+        return media;
     }
 
 

@@ -1,14 +1,15 @@
 package StudentHomePage;
 
+import uk.co.caprica.vlcj.player.media.Media;
+
 public class VideoBoxModel {
     private VideoBox controller;
     private int width = 1200;
     private int height = 800;
+    private Media media;
 
-    private String path;
-
-    public VideoBoxModel (String path){
-        this.path = path;
+    public VideoBoxModel (Media media){
+        this.media = media;
     }
 
     public int getWidth() {
@@ -19,5 +20,7 @@ public class VideoBoxModel {
         return height;
     }
 
-    public String getPath() { return path;    }
+    public Media getMedia() {
+        return media;
+    }
 }

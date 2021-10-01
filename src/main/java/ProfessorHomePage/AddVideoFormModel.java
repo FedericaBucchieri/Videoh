@@ -3,6 +3,7 @@ package ProfessorHomePage;
 import entities.Professor;
 import entities.Video;
 import services.VideoService;
+import uk.co.caprica.vlcj.player.media.Media;
 
 import java.io.File;
 

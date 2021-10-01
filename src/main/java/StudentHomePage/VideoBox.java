@@ -1,5 +1,7 @@
 package StudentHomePage;
 
+import uk.co.caprica.vlcj.player.media.Media;
+
 public class VideoBox {//controller
 
     private VideoBoxModel model;
@@ -7,8 +9,8 @@ public class VideoBox {//controller
 
 
 
-    public VideoBox(String path){
-        model = new VideoBoxModel(path);
+    public VideoBox(Media media){
+        model = new VideoBoxModel(media);
         UI = new VideoBoxUI(this);
 
     }

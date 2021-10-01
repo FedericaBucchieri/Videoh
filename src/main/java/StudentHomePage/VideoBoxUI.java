@@ -4,6 +4,7 @@ import uk.co.caprica.vlcj.component.DirectMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.direct.*;
 import uk.co.caprica.vlcj.player.direct.format.RV32BufferFormat;
 
+import javax.print.attribute.standard.Media;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -33,7 +34,7 @@ public class VideoBoxUI {
         setupControllButtonsPanel();
 
         //TODO: raggruppa tutto in una funzione.
-        mediaPlayerComponent.getMediaPlayer().playMedia(this.controller.getModel().getPath());
+        mediaPlayerComponent.getMediaPlayer().playMedia(this.controller.getModel().getMedia());
         isPlaying = true;
 
 
@@ -80,6 +81,9 @@ public class VideoBoxUI {
     private void setupMainPanel() {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
+        mainPanel.add(videoSurface, BorderLayout.CENTER);
+        setupImage();
+        mediaPlayerComponent.getMediaPlayer().playMedia(this.controller.getModel().getMedia());
 
     }
 

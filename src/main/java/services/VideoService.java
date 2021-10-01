@@ -6,6 +6,7 @@ import exceptions.UpdateVideoException;
 import exceptions.UserNotRegisteredException;
 import jakarta.persistence.*;
 import sceneManager.Utils;
+import uk.co.caprica.vlcj.player.media.Media;
 
 import java.io.File;
 import java.util.List;

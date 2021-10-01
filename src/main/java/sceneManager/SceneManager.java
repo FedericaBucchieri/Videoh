@@ -9,6 +9,7 @@ import StudentLogin.StudentLoginScene;
 import entities.Professor;
 import ProfessorHomePage.ProfessorHomePage;
 import ProfessorLoginScene.ProfessorLoginScene;
+import uk.co.caprica.vlcj.player.media.Media;
 
 import javax.swing.*;
 import java.awt.*;
@@ -94,12 +95,16 @@ public class SceneManager extends JFrame implements Listener {
             handleBackEvent();
         }
         else if (event.getClass().equals(GoToVideoEvent.class)){
-            goToVideoStudentPage(((GoToVideoEvent) event).getVideoPath(),((GoToVideoEvent) event).getUsername());
+            GoToVideoEvent e = ((GoToVideoEvent) event);
+            goToVideoStudentPage(e.getMedia(), e.getUsername());
+        }
+        else if (event.getClass().equals(LogoutEvent.class)){
+            goToGeneralLoginPage();
         }
     }
 
-    private void goToVideoStudentPage(String path, String username) {
-        StudentHomePageScene studentHomePageScene = new StudentHomePageScene(this, path, username);
+    private void goToVideoStudentPage(Media media, String username) {
+        StudentHomePageScene studentHomePageScene = new StudentHomePageScene(this, media, username);
         currentScene = studentHomePageScene;
         container.add(studentHomePageScene.getMainPanel());
         cardLayout.next(container);

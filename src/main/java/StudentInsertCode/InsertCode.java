@@ -5,6 +5,8 @@ import EventManagement.GoToVideoEvent;
 import EventManagement.Listener;
 import entities.Video;
 import sceneManager.SceneManager;
+import uk.co.caprica.vlcj.player.media.Media;
+import uk.co.caprica.vlcj.player.media.callback.seekable.RandomAccessFileMedia;
 
 import javax.swing.*;
 import java.io.File;
@@ -24,22 +26,28 @@ public class InsertCode extends JComponent {
         this.ui.installUI();
     }
 
-    public JPanel getMainPanel(){
+    public JPanel getMainPanel() {
         return ui.getMainPanel();
     }
 
-    public void goBackToGeneralLogin(){
+    public void goBackToGeneralLogin() {
         for (Listener listener : listeners)
             listener.listen(new BackEvent());
     }
 
-    public String getStudentUsername(){
-        return  model.getStudentUsername();
+    public String getStudentUsername() {
+        return model.getStudentUsername();
     }
 
-    public void goToStudentHomePage(String videoPath, String username) {
-        for (Listener listener : listeners){
-            listener.listen(new GoToVideoEvent(videoPath, username));
+    public void goToStudentHomePage(String videoCode) {
+        Video video = model.searchVideoByCode(Integer.parseInt(videoCode));
+        Media media = new RandomAccessFileMedia(video.getFile());
+        dispatchGoToVideoEvent(media, getStudentUsername());
+    }
+
+    private void dispatchGoToVideoEvent(Media media, String username) {
+        for (Listener listener : listeners) {
+            listener.listen(new GoToVideoEvent(media, username));
         }
     }
 

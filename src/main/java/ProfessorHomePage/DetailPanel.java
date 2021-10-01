@@ -1,6 +1,7 @@
 package ProfessorHomePage;
 
 import EventManagement.Listener;
+import EventManagement.LogoutEvent;
 import EventManagement.NewVideoRequestEvent;
 import EventManagement.UpdateProfileRequestEvent;
 import entities.Professor;
@@ -51,6 +52,11 @@ public class DetailPanel extends JComponent {
     private void dispatchUpdateProfileRequestEvent(){
         for (Listener listener : listeners)
             listener.listen(new UpdateProfileRequestEvent());
+    }
+
+    public void handleLogout(){
+        for (Listener listener : listeners)
+            listener.listen(new LogoutEvent());
     }
 
     @Override
